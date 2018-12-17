@@ -15,24 +15,24 @@ Help you to increase your development acceleration, reduce unnecessary barriers 
 
   - Run following commands to support NAP compiling.
 
-	root@OCTEONTX: export RTE_SDK=/home/dpdk-stable-17.05.2
-	root@OCTEONTX: export RTE_TARGET=arm64-thunderx-linuxapp-gcc
+        root@OCTEONTX: export RTE_SDK=/home/dpdk-stable-17.05.2
+        root@OCTEONTX: export RTE_TARGET=arm64-thunderx-linuxapp-gcc
 
   **Note** You can append this export things to /etc/bash.bashrc, and then source /etc/bash.bashrc.
 
   - Clone project from github
 
-	root@OCTEONTX: git clone https://github.com/asterfusion/SF1500-NAP.git
+        root@OCTEONTX: git clone https://github.com/asterfusion/SF1500-NAP.git
   
 2. Switch to top of this project and compiling
-	
-	root@OCTEONTX: cd SF1500-NAP
-	root@OCTEONTX: source Compile.sh
-	root@OCTEONTX: <wait for compile finished>
-	root@OCTEONTX: make install
-	root@OCTEONTX: tar -xvf napd-v2.5.0.$gitSHA.tar.gz
-	root@OCTEONTX: cd napd
-	root@OCTEONTX: ./install_nap.sh
+
+        root@OCTEONTX: cd SF1500-NAP
+        root@OCTEONTX: source Compile.sh
+        root@OCTEONTX: <wait for compile finished>
+        root@OCTEONTX: make install
+        root@OCTEONTX: tar -xvf napd-v2.5.0.$gitSHA.tar.gz
+        root@OCTEONTX: cd napd
+        root@OCTEONTX: ./install_nap.sh
 
 3. Run nap
 
