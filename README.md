@@ -11,7 +11,14 @@ On NAP side, it will abstract the metadata (SIP,DIP,SP,DP,PROTO) from comeing pa
 
 Let's see a simple example here.
 
-A packet which carrying metadata with (SP=192.168.0.1,DP=192.168.0.2,SP=1234,DP=4321,PROTO=6) comes from one of XE port. The NAP gets a 32-bit RSS value 231405843. At last, the NAP trys to decide an output port from 8 GE ports (note that) with this RSS value. At last, the packet will be deliveried to that port only when it's up, otherwise, the NAP will drop this packet.   
+A packet which carrying metadata with (SP=192.168.0.1,DP=192.168.0.2,SP=1234,DP=4321,PROTO=6) comes from one of XE port. The NAP gets a 32-bit RSS value 231405843 throu a hash function. Then, the NAP trys to decide one of 8 GE ports as output (note that) with this RSS value. At last, the packet will be deliveried to that port only when it's up, otherwise, it will be dropped.
+   
+  - packet arrived
+  - abstract metadata
+  - caculate 32-bit RSS value by metadata
+  - decide output port by RSS value
+  - delivery out
+
 
 # What's the purpose of this interface ?
 Help you to increase your development acceleration, reduce unnecessary barriers of your productions.
@@ -43,9 +50,19 @@ Help you to increase your development acceleration, reduce unnecessary barriers 
         root@OCTEONTX: cd napd
         root@OCTEONTX: ./install_nap.sh
 
-3. Run nap
+3. Run NAP
 
   Switch to /usr/local/etc/nap, and run StartNAPD.sh to lauch nap.
-  
+
+4. About the design principle of the NAP
+
+  There are 4 lcores in SOC of SF1500 and the NAP uses 3 of them as full-time packets IO. Each lcore connected to each port (CPU) through queues and this feature can be showed from the startup NAP application.
+
+	root@OCTEONTX: ps -ef | grep nap
+
+  You can see output like this "napd -c 0xf -n 2 -- -p 0x7 --config=(0,0,1),(0,1,2),(0,2,3),(1,0,1),(1,1,2),(1,2,3),(2,0,1),(2,1,2),(2,2,3)". The --config shows us a set of three-axis matrixs (lcoreid,portid,rxqueueid).
+
   
 # Q&A
+
+
